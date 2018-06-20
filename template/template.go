@@ -86,7 +86,7 @@ func InitGenerator(varsFile string, config []byte) *Generator {
 	if err != nil {
 		panic(err)
 	}
-	g.tmpl = template.New("").Funcs(template.FuncMap{
+	g.tmpl = template.New("").Delims("[[","]]").Funcs(template.FuncMap{
 		"Lookup":       g.templateLookup,
 		"LookupSecret": g.templateLookupSecret,
 	})
