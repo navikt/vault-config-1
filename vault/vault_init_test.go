@@ -157,7 +157,6 @@ auth {
     description = "LDAP Auth backend config"
     authconfig {
       binddn = "CN=SamE,CN=Users,DC=test,DC=local"
-      bindpass = "z"
       url = "ldap://10.255.0.30"
       userdn = "CN=Users,DC=test,DC=local"
     }
