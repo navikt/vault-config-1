@@ -154,6 +154,7 @@ token_role "example_period_token_role" {
 
 auth {
   ldap {
+	path= "ldap"
     description = "LDAP Auth backend config"
     authconfig {
       binddn = "CN=SamE,CN=Users,DC=test,DC=local"
@@ -176,6 +177,7 @@ auth {
     }
   }
   github {
+	path = "github"
     authconfig = {
       organization = "testorg"
     }

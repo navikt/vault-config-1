@@ -8,7 +8,7 @@ import (
 // AuthType defines an interface for dealing with Auth backends
 type AuthType interface {
 	Describe() string
-	GetType() string
+	GetPath() string
 	getAuthConfig() map[string]interface{}
 	getAuthMountConfig() map[string]interface{}
 	//AConfig() map[string]interface{}
@@ -35,12 +35,12 @@ func (c *VCClient) AuthExist(name string) bool {
 
 // Path will return the path of an Auth backend
 func Path(a AuthType) string {
-	return fmt.Sprintf("auth/%s", a.GetType())
+	return fmt.Sprintf("auth/%s", a.GetPath())
 }
 
 // AuthEnable enables an auth backend
 func (c *VCClient) AuthEnable(a AuthType) error {
-	if err := c.Sys().EnableAuth(a.GetType(), a.GetType(), a.Describe()); err != nil {
+	if err := c.Sys().EnableAuth(a.GetPath(), a.GetPath(), a.Describe()); err != nil {
 		return err
 	}
 
@@ -67,7 +67,7 @@ func (c *VCClient) AuthConfigure(a AuthType) error {
 }
 
 func EnableAndConfigure(a AuthType, c *VCClient) error {
-	if !c.AuthExist(a.GetType()) {
+	if !c.AuthExist(a.GetPath()) {
 		if err := c.AuthEnable(a); err != nil {
 			return fmt.Errorf("Error enabling auth mount: %v", err)
 		}

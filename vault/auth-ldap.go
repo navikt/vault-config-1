@@ -7,9 +7,10 @@ import (
 )
 
 type Ldap struct {
+	Path        string                 `hcl:"path"`
 	Description string                 `hcl:"description"`
 	AuthConfig  map[string]interface{} `hcl:"authconfig"`
-	Users       []struct {
+	Users []struct {
 		Name    string                 `hcl:",key"`
 		Options map[string]interface{} `hcl:"options"`
 	} `hcl:"User"`
@@ -23,8 +24,8 @@ type Ldap struct {
 	} `hcl:"mountconfig"`
 }
 
-func (l Ldap) GetType() string {
-	return "ldap"
+func (l Ldap) GetPath() string {
+	return l.Path
 }
 
 func (l Ldap) Describe() string {

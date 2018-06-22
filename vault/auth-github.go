@@ -7,8 +7,9 @@ import (
 )
 
 type Github struct {
+	Path        string `hcl:"path"`
 	Description string `hcl:"description"`
-	Users       []struct {
+	Users []struct {
 		Name    string                 `hcl:",key"`
 		Options map[string]interface{} `hcl:"options"`
 	} `hcl:"users,ommitempty"`
@@ -23,8 +24,8 @@ type Github struct {
 	AuthConfig map[string]interface{} `hcl:"authconfig"`
 }
 
-func (g Github) GetType() string {
-	return "github"
+func (g Github) GetPath() string {
+	return g.Path
 }
 
 func (g Github) Describe() string {

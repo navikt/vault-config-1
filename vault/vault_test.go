@@ -9,15 +9,15 @@ import (
 )
 
 func (vsc *vaultServerConfigTestSuite) testAuthBackendEnable(a AuthType) {
-	assert.False(vsc.T(), vsc.vtc.AuthExist(a.GetType()), "Auth should not exist before enable: %s", a.GetType())
+	assert.False(vsc.T(), vsc.vtc.AuthExist(a.GetPath()), "Auth should not exist before enable: %s", a.GetPath())
 	err := vsc.vtc.AuthEnable(a)
 	assert.NoError(vsc.T(), err, "AuthEnable should not return an error: %v", err)
-	assert.True(vsc.T(), vsc.vtc.AuthExist(a.GetType()), "AuthExist should return true after enabling auth type: %s", a.GetType())
+	assert.True(vsc.T(), vsc.vtc.AuthExist(a.GetPath()), "AuthExist should return true after enabling auth type: %s", a.GetPath())
 }
 
 func (vsc *vaultServerConfigTestSuite) testAuthBackendConfiguration(a AuthType) {
 	vsc.vtc.AuthConfigure(a)
-	s, err := vsc.vtc.Logical().Read("auth/" + a.GetType() + "/config")
+	s, err := vsc.vtc.Logical().Read("auth/" + a.GetPath() + "/config")
 	assert.NoError(vsc.T(), err, "Should not error reading Auth config path: %v", err)
 	ac := a.getAuthConfig()
 	for k, _ := range ac {
