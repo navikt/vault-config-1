@@ -88,6 +88,7 @@ token_role "example_period_token_role" {
 Currently Auth has support for LDAP and Github
 #### Argument Reference
 - `ldap` - Configures Ldap auth backend
+    - `path ` - Path of auth backend
     - `description` - Description for the backend
     - `authconfig` - Map of options for hte auth backend
     - `user` - Configure user mapping
@@ -98,6 +99,7 @@ Currently Auth has support for LDAP and Github
         - `default_lease_ttl` - Default lease TTL as time duration
         - `max_lease_ttl` - Max lease TTL as time duration
 - `github` - Configures Github backend
+    - `path ` - Path of auth backend
     - `description` - Description for the backend
     - `authconfig` - Map of options for hte auth backend
     - `user` - Configure user mapping
