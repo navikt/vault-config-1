@@ -7,8 +7,7 @@ import (
 )
 
 type Github struct {
-	Path        string `hcl:"path"`
-	Description string `hcl:"description"`
+	GenericAuth `hcl:",squash"`
 	Users []struct {
 		Name    string                 `hcl:",key"`
 		Options map[string]interface{} `hcl:"options"`
@@ -17,11 +16,6 @@ type Github struct {
 		Name    string                 `hcl:"name"`
 		Options map[string]interface{} `hcl:"options"`
 	} `hcl:"teams,ommitempty"`
-	MountConfig struct {
-		DefaultLeaseTTL string `hcl:"default_lease_ttl"`
-		MaxLeaseTTL     string `hcl:"max_lease_ttl"`
-	} `hcl:"mountconfig"`
-	AuthConfig map[string]interface{} `hcl:"authconfig"`
 }
 
 func (g Github) GetPath() string {

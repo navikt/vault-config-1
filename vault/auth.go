@@ -11,11 +11,20 @@ type AuthType interface {
 	GetPath() string
 	getAuthConfig() map[string]interface{}
 	getAuthMountConfig() map[string]interface{}
-	//AConfig() map[string]interface{}
 	Configure(c *VCClient) error
 	TuneMount(c *VCClient, path string) error
 	WriteUsers(c *VCClient) error
 	WriteGroups(c *VCClient) error
+}
+
+type GenericAuth struct {
+	Path        string                 `hcl:"path"`
+	Description string                 `hcl:"description"`
+	AuthConfig  map[string]interface{} `hcl:"authconfig"`
+	MountConfig struct {
+		DefaultLeaseTTL string `hcl:"default_lease_ttl" mapstructure:"default_lease_ttl"`
+		MaxLeaseTTL     string `hcl:"max_lease_ttl" mapstructure:"max_lease_ttl"`
+	} `hcl:"mountconfig"`
 }
 
 // AuthExist checks for the existance of an Auth mount

@@ -7,9 +7,7 @@ import (
 )
 
 type Ldap struct {
-	Path        string                 `hcl:"path"`
-	Description string                 `hcl:"description"`
-	AuthConfig  map[string]interface{} `hcl:"authconfig"`
+	GenericAuth `hcl:",squash"`
 	Users []struct {
 		Name    string                 `hcl:",key"`
 		Options map[string]interface{} `hcl:"options"`
@@ -18,10 +16,6 @@ type Ldap struct {
 		Name    string                 `hcl:",key"`
 		Options map[string]interface{} `hcl:"options"`
 	} `hcl:"group"`
-	MountConfig struct {
-		DefaultLeaseTTL string `hcl:"default_lease_ttl" mapstructure:"default_lease_ttl"`
-		MaxLeaseTTL     string `hcl:"max_lease_ttl" mapstructure:"max_lease_ttl"`
-	} `hcl:"mountconfig"`
 }
 
 func (l Ldap) GetPath() string {
