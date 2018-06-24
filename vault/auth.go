@@ -10,6 +10,7 @@ import (
 type AuthType interface {
 	Describe() string
 	GetPath() string
+	GetType() string
 	getAuthConfig() map[string]interface{}
 	getAuthMountConfig() map[string]interface{}
 	Configure(c *VCClient) error
@@ -31,8 +32,6 @@ type Entity struct {
 	Name    string                 `hcl:",key"`
 	Options map[string]interface{} `hcl:"options"`
 }
-
-
 
 func (g GenericAuth) GetPath() string {
 	return g.Path
@@ -86,7 +85,7 @@ func Path(a AuthType) string {
 
 // AuthEnable enables an auth backend
 func (c *VCClient) AuthEnable(a AuthType) error {
-	if err := c.Sys().EnableAuth(a.GetPath(), a.GetPath(), a.Describe()); err != nil {
+	if err := c.Sys().EnableAuth(a.GetPath(), a.GetType(), a.Describe()); err != nil {
 		return err
 	}
 

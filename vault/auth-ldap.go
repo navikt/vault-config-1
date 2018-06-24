@@ -10,6 +10,11 @@ type Ldap struct {
 	Groups []Entity `hcl:"group"`
 }
 
+func (g Ldap) GetType() string {
+	return "ldap"
+}
+
+
 func (l Ldap) WriteUsers(c *VCClient) error {
 	userPath := fmt.Sprintf("%s/users", Path(l))
 	for _, v := range l.Users {

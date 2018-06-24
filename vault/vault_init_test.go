@@ -154,7 +154,7 @@ token_role "example_period_token_role" {
 
 auth {
   ldap {
-	path= "ldap"
+	path= "ldap-dev"
     description = "LDAP Auth backend config"
     authconfig {
       binddn = "CN=SamE,CN=Users,DC=test,DC=local"

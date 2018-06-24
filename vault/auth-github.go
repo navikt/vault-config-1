@@ -10,6 +10,10 @@ type Github struct {
 	Teams []Entity `hcl:"teams,ommitempty"`
 }
 
+func (g Github) GetType() string {
+	return "github"
+}
+
 func (g Github) WriteUsers(c *VCClient) error {
 	userPath := fmt.Sprintf("%s/map/users", Path(g))
 
