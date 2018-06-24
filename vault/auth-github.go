@@ -5,15 +5,9 @@ import (
 )
 
 type Github struct {
-	GenericAuth `hcl:",squash"`
-	Users []struct {
-		Name    string                 `hcl:",key"`
-		Options map[string]interface{} `hcl:"options"`
-	} `hcl:"users,ommitempty"`
-	Groups []struct {
-		Name    string                 `hcl:"name"`
-		Options map[string]interface{} `hcl:"options"`
-	} `hcl:"teams,ommitempty"`
+	GenericAuth    `hcl:",squash"`
+	Users []Entity `hcl:"users,ommitempty"`
+	Teams []Entity `hcl:"teams,ommitempty"`
 }
 
 func (g Github) WriteUsers(c *VCClient) error {
@@ -30,10 +24,10 @@ func (g Github) WriteUsers(c *VCClient) error {
 	return nil
 }
 
-func (g Github) WriteGroups(c *VCClient) error {
+func (g Github) WriteTeams(c *VCClient) error {
 	groupPath := fmt.Sprintf("%s/map/teams", Path(g))
 
-	for _, v := range g.Groups {
+	for _, v := range g.Teams {
 		path := fmt.Sprintf("%s/%s", groupPath, v.Name)
 		_, err := c.Logical().Write(path, v.Options)
 		if err != nil {
@@ -42,4 +36,16 @@ func (g Github) WriteGroups(c *VCClient) error {
 	}
 
 	return nil
+}
+
+func (l Github) WriteStuff(c *VCClient) error {
+	if err := l.WriteUsers(c); err != nil {
+		return err
+	}
+
+	if err := l.WriteTeams(c); err != nil {
+		return err
+	}
+	return nil
+
 }

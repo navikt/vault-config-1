@@ -14,8 +14,7 @@ type AuthType interface {
 	getAuthMountConfig() map[string]interface{}
 	Configure(c *VCClient) error
 	TuneMount(c *VCClient, path string) error
-	WriteUsers(c *VCClient) error
-	WriteGroups(c *VCClient) error
+	WriteStuff(c *VCClient) error
 }
 
 type GenericAuth struct {
@@ -27,6 +26,13 @@ type GenericAuth struct {
 		MaxLeaseTTL     string `hcl:"max_lease_ttl" mapstructure:"max_lease_ttl"`
 	} `hcl:"mountconfig"`
 }
+
+type Entity struct {
+	Name    string                 `hcl:",key"`
+	Options map[string]interface{} `hcl:"options"`
+}
+
+
 
 func (g GenericAuth) GetPath() string {
 	return g.Path
@@ -89,12 +95,10 @@ func (c *VCClient) AuthEnable(a AuthType) error {
 
 // AuthConfigure sets the configuration for an auth backend
 func (c *VCClient) AuthConfigure(a AuthType) error {
-	if err := a.WriteUsers(c); err != nil {
+	if err := a.WriteStuff(c); err != nil {
 		return err
 	}
-	if err := a.WriteGroups(c); err != nil {
-		return err
-	}
+
 	if err := a.TuneMount(c, Path(a)); err != nil {
 		return err
 	}

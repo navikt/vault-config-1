@@ -2,19 +2,12 @@ package vault
 
 import (
 	"fmt"
-
 )
 
 type Ldap struct {
-	GenericAuth `hcl:",squash"`
-	Users []struct {
-		Name    string                 `hcl:",key"`
-		Options map[string]interface{} `hcl:"options"`
-	} `hcl:"User"`
-	Groups []struct {
-		Name    string                 `hcl:",key"`
-		Options map[string]interface{} `hcl:"options"`
-	} `hcl:"group"`
+	GenericAuth     `hcl:",squash"`
+	Users  []Entity `hcl:"User"`
+	Groups []Entity `hcl:"group"`
 }
 
 func (l Ldap) WriteUsers(c *VCClient) error {
@@ -44,4 +37,17 @@ func (l Ldap) WriteGroups(c *VCClient) error {
 	}
 
 	return nil
+}
+
+func (l Ldap) WriteStuff(c *VCClient) error {
+	if err := l.WriteUsers(c); err != nil {
+		return err
+	}
+
+	if err := l.WriteGroups(c); err != nil {
+		return err
+	}
+
+	return nil
+
 }
