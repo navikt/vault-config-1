@@ -3,7 +3,6 @@ package vault
 import (
 	"fmt"
 
-	"github.com/fatih/structs"
 )
 
 type Ldap struct {
@@ -16,18 +15,6 @@ type Ldap struct {
 		Name    string                 `hcl:",key"`
 		Options map[string]interface{} `hcl:"options"`
 	} `hcl:"group"`
-}
-
-func (l Ldap) GetPath() string {
-	return l.Path
-}
-
-func (l Ldap) Describe() string {
-	return l.Description
-}
-
-func (l Ldap) TuneMount(c *VCClient, path string) error {
-	return c.TuneMount(path, structs.Map(l.MountConfig))
 }
 
 func (l Ldap) WriteUsers(c *VCClient) error {
@@ -57,22 +44,4 @@ func (l Ldap) WriteGroups(c *VCClient) error {
 	}
 
 	return nil
-}
-
-func (l Ldap) Configure(c *VCClient) error {
-	path := fmt.Sprintf("%s/config", Path(l))
-	_, err := c.Logical().Write(path, l.AuthConfig)
-	if err != nil {
-		return fmt.Errorf("Error writing auth config: %v", err)
-	}
-
-	return nil
-}
-
-func (l Ldap) getAuthConfig() map[string]interface{} {
-	return l.AuthConfig
-}
-
-func (l Ldap) getAuthMountConfig() map[string]interface{} {
-	return ConvertMapStringInterface(l.MountConfig)
 }
