@@ -24,8 +24,8 @@ type Config struct {
 }
 
 type Mount struct {
-	Name   string `hcl:",key"`
-	Path   string `hcl:"path"`
+	Name string `hcl:",key"`
+	Path string `hcl:"path"`
 	Config struct {
 		PathType    string `hcl:"type" mapstructure:"type"`
 		Description string `hcl:"description" mapstructure:"description"`
@@ -42,8 +42,9 @@ type Policy struct {
 }
 
 type Auth struct {
-	Ldap   *Ldap   `hcl:"ldap"`
-	Github *Github `hcl:"github"`
+	Ldap       *Ldap       `hcl:"ldap"`
+	Github     *Github     `hcl:"github"`
+	Kubernetes *Kubernetes `hcl:"kubernetes"`
 }
 
 type TokenRole struct {

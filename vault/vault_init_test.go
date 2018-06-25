@@ -153,6 +153,18 @@ token_role "example_period_token_role" {
 }
 
 auth {
+  kubernetes {
+	path= "kubernetes/preprod/fss"
+    description = "Kubernetes Auth backend config"
+    authconfig {
+		kubernetes_host = "https://kubernetes.nais.preprod.local"
+		kubernetes_ca_cert = "kubernetes_ca_cert"
+    }
+    mountconfig {
+      default_lease_ttl = "15m"
+      max_lease_ttl = "1h"
+    }
+  }
   ldap {
 	path= "ldap-dev"
     description = "LDAP Auth backend config"

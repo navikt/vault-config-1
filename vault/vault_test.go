@@ -1,11 +1,11 @@
 package vault
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"encoding/json"
 )
 
 func (vsc *vaultServerConfigTestSuite) testAuthBackendEnable(a AuthType) {
@@ -49,6 +49,20 @@ func (vsc *vaultServerConfigTestSuite) TestVCClient_Auth() {
 
 	// Test auth mount tuning has worked as expected
 	vsc.testAuthBackendMountConfiguration(vc.Auth.Ldap)
+	//vsc.testAuthBackendMountConfiguration(vc.Auth.Github)
+}
+
+func (vsc *vaultServerConfigTestSuite) TestVCClient_Kubernetes_Auth() {
+	// Testing enabling an Auth backends
+	vsc.testAuthBackendEnable(vc.Auth.Kubernetes)
+	//vsc.testAuthBackendEnable(vc.Auth.Github)
+
+	// Testing configuring Auth backend
+	vsc.testAuthBackendConfiguration(vc.Auth.Kubernetes)
+	//vsc.testAuthBackendConfiguration(vc.Auth.Github)
+
+	// Test auth mount tuning has worked as expected
+	vsc.testAuthBackendMountConfiguration(vc.Auth.Kubernetes)
 	//vsc.testAuthBackendMountConfiguration(vc.Auth.Github)
 }
 
