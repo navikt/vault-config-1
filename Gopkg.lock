@@ -95,12 +95,13 @@
   packages = [
     "api",
     "helper/compressutil",
+    "helper/hclutil",
     "helper/jsonutil",
     "helper/parseutil",
     "helper/strutil"
   ]
-  revision = "3ee0802ed08cb7f4046c2151ec4671a076b76166"
-  version = "v0.10.2"
+  revision = "533003e27840d9646cb4e7d23b3a113895da1dd0"
+  version = "v0.10.3"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -221,7 +222,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "027cca12c2d63e3d62b670d901e8a2c95854feec"
+  revision = "a49355c7e3f8fe157a85be2f77e6e269a0f89602"
 
 [[projects]]
   branch = "master"
@@ -233,7 +234,7 @@
     "http2/hpack",
     "idna"
   ]
-  revision = "db08ff08e8622530d9ed3a0e8ac279f6d4c02196"
+  revision = "afe8f62b1d6bbd81f31868121a50b06d8188e1f9"
 
 [[projects]]
   branch = "master"
@@ -242,7 +243,7 @@
     "unix",
     "windows"
   ]
-  revision = "6c888cc515d3ed83fc103cf1d84468aad274b0a7"
+  revision = "63fc586f45fe72d95d5240a5d5eb95e6503907d3"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -280,6 +281,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2be9a840f7860c47543799b76d8a1de2df6a5d4b93ceb3e20e98af040c47ad8e"
+  inputs-digest = "b9882f89a4f8f6a4501bafbecbefa9f8c90daf32963c0244852167bea4ffb4ae"
   solver-name = "gps-cdcl"
   solver-version = 1
