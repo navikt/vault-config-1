@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"github.com/fatih/structs"
+	"github.com/hashicorp/vault/api"
 )
 
 // AuthType defines an interface for dealing with Auth backends
@@ -85,10 +86,13 @@ func Path(a AuthType) string {
 
 // AuthEnable enables an auth backend
 func (c *VCClient) AuthEnable(a AuthType) error {
-	if err := c.Sys().EnableAuth(a.GetPath(), a.GetType(), a.Describe()); err != nil {
+	var options = &api.EnableAuthOptions{
+		Description: a.Describe(),
+		Type:        a.GetType(),
+	}
+	if err := c.Sys().EnableAuthWithOptions(a.GetPath(), options); err != nil {
 		return err
 	}
-
 	return nil
 }
 
